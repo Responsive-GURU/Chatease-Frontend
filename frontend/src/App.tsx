@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import SignUp from './components/Signup';
-// import Register from './components/Register';
-import Reg from './components/Reg';
+import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 function App() {
@@ -13,12 +11,12 @@ function App() {
       {/* <Register></Register> */}
       <Router>
         <Routes>
-          <Route path='/' element={<Reg/>} />
+          <Route path='/' element={<Register/>} />
           <Route path='/login' element={<Login/>}/>
           <Route path='/home' element={<Home/>}/>
         </Routes> 
       </Router>
-      {/* <Home></Home> */}
+
     </div>
   );
 }
