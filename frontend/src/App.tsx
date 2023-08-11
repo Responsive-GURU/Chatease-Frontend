@@ -1,6 +1,6 @@
 
 import './App.css';
-<<<<<<< HEAD
+
 import { Register } from './component/Register';
 import Signin from './component/Signin';
 import {BrowserRouter, Routes, Route } from "react-router-dom";
@@ -20,28 +20,7 @@ import Frontpage from './component/Frontpage';
          
       </Routes>
 </BrowserRouter> 
-   
   </>
-=======
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './components/Register';
-import Login from './components/Login';
-import Home from './components/Home';
-function App() {
-  return (
-    <div className="App">
-      {/* <h1>WE ARE PLEASURED TO SEE YOU</h1> */}
-      {/* <Register></Register> */}
-      <Router>
-        <Routes>
-          <Route path='/' element={<Register/>} />
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/home' element={<Home/>}/>
-        </Routes> 
-      </Router>
-
-    </div>
->>>>>>> 83b2e458feea1672c622d90841af2cf0e00ddc93
   );
 }
 export default App;

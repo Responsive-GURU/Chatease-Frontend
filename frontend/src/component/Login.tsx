@@ -1,6 +1,5 @@
 import React, { useState,useRef, useEffect} from 'react';
 import { useNavigate,Routes,Route} from 'react-router-dom';
-import Reg from './Register';
 import TextField from '@mui/material/TextField'
 import axios from 'axios';
 import Button from '@mui/material/Button'

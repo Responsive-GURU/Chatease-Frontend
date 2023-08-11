@@ -11,7 +11,6 @@ const Frontpage=()=>{
     const navigate=useNavigate()
     const value2=useRef<HTMLInputElement>(null)
     const value3=useRef<HTMLInputElement>(null)
-  
      ////const { email} = useParams<{ email: string}>();
     const type1=(e:React.FormEvent<HTMLFormElement>)=>{//React.FormEvent is the type
         e.preventDefault();//cancels the event if it is cancellablehis is done using the preventDefault() method of an event. The preventDefault() method of an event is used to stop a cancelable event from executing.

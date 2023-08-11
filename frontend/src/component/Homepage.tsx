@@ -1,5 +1,5 @@
 import {Grid,DialogActions,Card,CardHeader,Stack,Menu,MenuItem,CardContent,CardMedia,Avatar} from "@mui/material";
-import { useState } from "react";
+import { useState,useRef} from "react";
 import { TextField } from '@mui/material';
 import {Button} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
@@ -10,11 +10,11 @@ import logo from '../image/logo.jpg'
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Person2Icon from '@mui/icons-material/Person2';
-import { styled } from '@mui/material/styles';
-import CloseIcon from '@mui/icons-material/Close';
+
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import { text } from "node:stream/consumers";
 const Homepage=()=>{
   
     const[image,setImage]=useState<File|null>(null);
@@ -24,9 +24,8 @@ const Homepage=()=>{
     const [count,Setcount]=useState(0)
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
+    const [textval,setTextval]=useState<String|null>(null);
     
-
-
     const ImageUpload=(event:React.ChangeEvent<HTMLInputElement>)=>{
      setImage(event.target.files?.[0]||null) //? will not throw an error instead it returns undefined
      setCheck(false);
@@ -56,7 +55,9 @@ const Homepage=()=>{
     const text1=()=>{
       setCount2(!count2)
     }
-
+    const textchange=(event:React.ChangeEvent<HTMLInputElement>)=>{
+       setTextval(event.target.value);
+    }
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setValue(event.currentTarget);
@@ -113,7 +114,7 @@ const Homepage=()=>{
                     </Grid>
                   </Grid>
                 <Grid item display="flex" justifyContent="center" alignItems="center">
-                  <TextField variant="standard" placeholder="comment" style={{marginLeft:'20px'}} multiline></TextField>
+                  <TextField variant="standard" placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
                 </Grid>
               </DialogContent>
               <DialogActions>
@@ -157,9 +158,11 @@ const Homepage=()=>{
                     height="220"
                     image={URL.createObjectURL(image)}
                     alt="abc"
-                    />}
+                    />
+                    }
             <CardContent>
-                <Stack direction="row" my={1} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
+                <Stack direction="row"><span>{textval}</span></Stack>
+                <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
             </CardContent>
           </Card>}
         
