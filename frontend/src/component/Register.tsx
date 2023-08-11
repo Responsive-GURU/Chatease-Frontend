@@ -83,10 +83,7 @@ export const Register=()=>{
             <Grid item my={2}>Already have an account?<Link  href="" onClick={change}>Login</Link></Grid>
           </form>
        </Grid>
-      <Routes>
-      <Route path="/chatease/login" element={<Signin/>} />
-      </Routes>
-  </>
+     </>
 )}
 
 

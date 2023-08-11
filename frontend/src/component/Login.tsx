@@ -1,6 +1,6 @@
 import React, { useState,useRef, useEffect} from 'react';
 import { useNavigate,Routes,Route} from 'react-router-dom';
-import Reg from './Register';
+// import Register from '../component/Register';
 import TextField from '@mui/material/TextField'
 import axios from 'axios';
 import Button from '@mui/material/Button'
@@ -38,6 +38,10 @@ function Login(){
             console.log("error",e)
         })
     }
+
+    const passwordReset=()=>{
+      navigate('/chatease/login')
+   }
     return(
     <div>
     {/* <form onSubmit={handleSubmit}>
@@ -94,7 +98,7 @@ function Login(){
                 }}>
                 REGISTER
               </Button>  */}
-              <Link href="">Forgot password</Link>
+              <Link onClick={passwordReset}>Forgot password</Link>
               <Button type="submit" variant="contained" size="large">LOGIN</Button>
             </Stack>
           </Grid>
