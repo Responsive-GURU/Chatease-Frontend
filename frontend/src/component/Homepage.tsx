@@ -14,7 +14,7 @@ import Person2Icon from '@mui/icons-material/Person2';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import { text } from "node:stream/consumers";
+
 const Homepage=()=>{
   
     const[image,setImage]=useState<File|null>(null);
@@ -25,7 +25,8 @@ const Homepage=()=>{
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
     const [textval,setTextval]=useState<String|null>(null);
-    
+    const [value1,setValue1]=useState<null|HTMLElement>(null);
+    const open1=Boolean(value1);
     const ImageUpload=(event:React.ChangeEvent<HTMLInputElement>)=>{
      setImage(event.target.files?.[0]||null) //? will not throw an error instead it returns undefined
      setCheck(false);
@@ -141,61 +142,20 @@ const Homepage=()=>{
                 </Avatar>
               }
             action={
-              <div>
+              <Grid>
               <IconButton onClick={handleClick}>
                 <MoreVertIcon> </MoreVertIcon>
               </IconButton>
               <Menu
                 id="item"
-                open={open}
-                anchorEl={value}//it is used to position the menu relative to the specific element
+                open={open1}
+                anchorEl={value1}//it is used to position the menu relative to the specific element
                 onClose={()=>setValue(null)}>
               {/* <MenuItem>AddImage <input type="file" accept="image/png"/></MenuItem> */}
                 <MenuItem>EditPost</MenuItem>
                 <MenuItem>DeletePost</MenuItem>
               </Menu>
-            </div>}
-
-              title="chat-ease" 
-              subheader={formattedTime}
-            />
-            {image &&<CardMedia
-                    component="img"
-                    height="220"
-                    image={URL.createObjectURL(image)}
-                    alt="abc"
-                    />
-                    }
-            <CardContent>
-                <Stack direction="row"><span>{textval}</span></Stack>
-                <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
-            </CardContent>
-          </Card>}
-        
-          </Grid>
-          <Grid container display="flex" justifyContent="center">
-            {display &&<Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
-            <CardHeader      
-              avatar={
-                <Avatar>
-                  C
-                </Avatar>
-              }
-            action={
-              <div>
-              <IconButton onClick={handleClick}>
-                <MoreVertIcon> </MoreVertIcon>
-              </IconButton>
-              <Menu
-                id="item"
-                open={open}
-                anchorEl={value}//it is used to position the menu relative to the specific element
-                onClose={()=>setValue(null)}>
-              {/* <MenuItem>AddImage <input type="file" accept="image/png"/></MenuItem> */}
-                <MenuItem>EditPost</MenuItem>
-                <MenuItem>DeletePost</MenuItem>
-              </Menu>
-            </div>}
+            </Grid>}
 
               title="chat-ease" 
               subheader={formattedTime}

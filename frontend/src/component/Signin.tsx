@@ -8,18 +8,25 @@ import Homepage from './Homepage';
 import logo from '../image/logo.jpg'
 import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
-
+import axios from 'axios'
  const Signin=()=>{
-    const value2=useRef<HTMLInputElement>(null)
-    const value3=useRef<HTMLInputElement>(null)
+    const emailValue=useRef<HTMLInputElement>(null)
+    const passwordValue=useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
-     ////const { email} = useParams<{ email: string}>();
-    const type1=(e:React.FormEvent<HTMLFormElement>)=>{//React.FormEvent is the type
-        e.preventDefault();//cancels the event if it is cancellablehis is done using the preventDefault() method of an event. The preventDefault() method of an event is used to stop a cancelable event from executing.
+   
+    const type1=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
        
-        const email1=value2.current?.value || '';
-        const pass1=value3.current?.value || '';
+        const email=emailValue.current?.value || '';
+        const pass=passwordValue.current?.value || '';
+        axios.post("http://localhost:8080/signin",{email:email,password:pass}).then((response)=>{
+        if(response.status===200){
           navigate("/chatease/homepage");
+        }}
+        ).catch((e)=>{
+          console.log(e);
+        })
+        }   
     }
   return(
     <Grid container>
@@ -35,8 +42,8 @@ import chat from '../image/chat.jpg'
             <Grid container my={3} justifyContent="center"><img src={logo} alt="asa" width="10%" height="40%"></img><span style={{color:"blue",fontSize:"22px"}}>LOGIN</span></Grid>
             <Grid container my={1} justifyContent="center">
               <form onSubmit={type1}>
-                  <Grid item my={2}><TextField required  inputRef={value2} type="email" label="email"></TextField></Grid> 
-                  <Grid item my={5}><TextField required  inputRef={value3} type="password" label="password"></TextField></Grid>
+                  <Grid item my={2}><TextField required  inputRef={emailValue} type="email" label="email"></TextField></Grid> 
+                  <Grid item my={5}><TextField required  inputRef={passwordValue} type="password" label="password"></TextField></Grid>
                   <Grid item my={4} mx={1}>
                       <Stack spacing={2} direction="row">
                         <Link href="">Forgot password</Link>
