@@ -1,0 +1,16 @@
+
+.custom-toolbar {
+    display: flex;
+    justify-content: start; /* Horizontally center */
+    align-items: center; /* Vertically center */
+  }
+  
+  .centered-image {
+    
+    max-width: 100%; /* Optional: Ensure image doesn't exceed its container */
+    max-height: 80%; /* Optional: Ensure image doesn't exceed its container */
+  }
+
+  
+
+  

@@ -12,7 +12,7 @@ import Forgot from './component/Forgot';
  
   return (
     <>  
-    <Navbar></Navbar>
+    <Navbar></Navbar>  
     <BrowserRouter>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />
@@ -22,8 +22,7 @@ import Forgot from './component/Forgot';
           <Route path='/chatease/reset' element={<Forgot/>}></Route>
          
       </Routes>
-</BrowserRouter> 
-   
+    </BrowserRouter> 
   </>)
 }
 export default App;

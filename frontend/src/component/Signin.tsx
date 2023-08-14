@@ -3,8 +3,6 @@ import {Button} from '@mui/material';
 import {Grid,Stack} from '@mui/material'
 import React, {useRef} from 'react';
 import { useNavigate,Routes,Route} from 'react-router-dom';
-import {Register} from './Register'
-import Homepage from './Homepage';
 import logo from '../image/logo.jpg'
 import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
