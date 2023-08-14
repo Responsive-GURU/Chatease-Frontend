@@ -52,7 +52,7 @@ import chat from '../image/chat.jpg'
   )
 
 }
-export default Signin
+export default Signin;
 
 // import * as React from 'react';
 // import Avatar from '@mui/material/Avatar';

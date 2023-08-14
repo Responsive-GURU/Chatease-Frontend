@@ -1,5 +1,5 @@
 import {Grid,DialogActions,Card,CardHeader,Stack,Menu,MenuItem,CardContent,CardMedia,Avatar} from "@mui/material";
-import { useState,useRef} from "react";
+import { useState,useRef,useEffect} from "react";
 import { TextField } from '@mui/material';
 import {Button} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
@@ -31,7 +31,13 @@ const Homepage=()=>{
      setCheck(false);
     
     }
+    const [currentTime, setCurrentTime] = useState(new Date());
 
+    useEffect(() => {
+            setCurrentTime(new Date());
+    }, []);
+
+    const formattedTime = currentTime.toLocaleTimeString();
     const handleClose1 = () => {
       setOpen(false);
       setDisplay(true);
@@ -151,7 +157,48 @@ const Homepage=()=>{
             </div>}
 
               title="chat-ease" 
-              subheader="time"
+              subheader={formattedTime}
+            />
+            {image &&<CardMedia
+                    component="img"
+                    height="220"
+                    image={URL.createObjectURL(image)}
+                    alt="abc"
+                    />
+                    }
+            <CardContent>
+                <Stack direction="row"><span>{textval}</span></Stack>
+                <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
+            </CardContent>
+          </Card>}
+        
+          </Grid>
+          <Grid container display="flex" justifyContent="center">
+            {display &&<Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
+            <CardHeader      
+              avatar={
+                <Avatar>
+                  C
+                </Avatar>
+              }
+            action={
+              <div>
+              <IconButton onClick={handleClick}>
+                <MoreVertIcon> </MoreVertIcon>
+              </IconButton>
+              <Menu
+                id="item"
+                open={open}
+                anchorEl={value}//it is used to position the menu relative to the specific element
+                onClose={()=>setValue(null)}>
+              {/* <MenuItem>AddImage <input type="file" accept="image/png"/></MenuItem> */}
+                <MenuItem>EditPost</MenuItem>
+                <MenuItem>DeletePost</MenuItem>
+              </Menu>
+            </div>}
+
+              title="chat-ease" 
+              subheader={formattedTime}
             />
             {image &&<CardMedia
                     component="img"
