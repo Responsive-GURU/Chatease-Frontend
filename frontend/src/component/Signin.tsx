@@ -3,8 +3,6 @@ import {Button} from '@mui/material';
 import {Grid,Stack} from '@mui/material'
 import React, {useRef} from 'react';
 import { useNavigate,Routes,Route} from 'react-router-dom';
-import {Register} from './Register'
-import Homepage from './Homepage';
 import logo from '../image/logo.jpg'
 import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
@@ -28,6 +26,9 @@ import axios from 'axios'
         })
         }   
     }
+    const resetPassword = () =>{
+      navigate("/chatease/reset");
+    }
   return(
     <Grid container>
         <Grid container justifyContent="space-between" sx={{borderBottom:'2px solid blue',backgroundColor:"lightBlue", padding:'15px 5px',position:'sticky',top:'0px'}}>
@@ -46,7 +47,7 @@ import axios from 'axios'
                   <Grid item my={5}><TextField required  inputRef={passwordValue} type="password" label="password"></TextField></Grid>
                   <Grid item my={4} mx={1}>
                       <Stack spacing={2} direction="row">
-                        <Link href="">Forgot password</Link>
+                        <Link  href="" onClick={resetPassword}>Forgot password?</Link>
                         <Button type="submit" variant="contained" size="small">LOGIN</Button>
                       </Stack>
                   </Grid>
@@ -54,15 +55,11 @@ import axios from 'axios'
             </Grid>
           </Grid> 
         </Grid>
-        <Routes>
-        <Route path="/chatease/register" element={<Register/>} />  
-        <Route path="/chatease/homepage" element={<Homepage/>} /> 
-        </Routes>
     </Grid>
   )
 
 }
-export default Signin
+export default Signin;
 
 // import * as React from 'react';
 // import Avatar from '@mui/material/Avatar';

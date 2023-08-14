@@ -36,7 +36,7 @@ function Reg(){
  
       if(userPassword === userCpassword){
         // console.log("hello")
-        axios.post('http://localhost:8080/signup',{username:userName,email:userEmail,password:userPassword}).then((response)=>{
+        axios.post('http://localhost:8080/chatease/register',{username:userName,email:userEmail,password:userPassword}).then((response)=>{
           // console.log(response.data.)
           const status = response.data.reg;
           if(status=== true)
