@@ -26,7 +26,6 @@ import { Navigate } from 'react-router-dom';
           console.log(e);
         })
         }   
-    }
     const resetPassword = () =>{
       navigate("/chatease/reset");
     }
@@ -57,9 +56,7 @@ import { Navigate } from 'react-router-dom';
           </Grid> 
         </Grid>
     </Grid>
-  )
-
-}
+  )}
 export default Signin;
 
 // import * as React from 'react';
