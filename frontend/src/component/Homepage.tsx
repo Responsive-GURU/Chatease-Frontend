@@ -14,7 +14,11 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import axios from "axios";
-
+interface userpost{
+  caption:string,
+  date:string,
+  image:string,
+}
 const Homepage=()=>{
     const[image,setImage]=useState<File|null>(null);
     const [check,setCheck]=useState(true);
@@ -24,6 +28,7 @@ const Homepage=()=>{
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
     const [textval,setTextval]=useState<String|null>(null);
+    const[allPost,setAllPost]=useState<userpost[]>();
     const [value1,setValue1]=useState<null|HTMLElement>(null);
     const open1=Boolean(value1);
     const ImageUpload=(event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -41,8 +46,9 @@ const Homepage=()=>{
     const handleClose1 = () => {
       setOpen(false);
       setDisplay(true);
-      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image), email:"moses@gmail.com"}).then((response)=>{
-     console.log(response)
+
+      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval}).then((response)=>{
+        setAllPost(response.data);
   }).catch((e)=>{
      console.log(e)
   })
@@ -140,6 +146,7 @@ const Homepage=()=>{
            </Grid>
           </Grid>
           <Grid container display="flex" justifyContent="center">
+
             {display &&<Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
             <CardHeader      
               avatar={
