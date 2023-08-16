@@ -58,7 +58,7 @@ export const Register=()=>{
    // if(use1.pass===use1.cpass){
       //alert("successful login");
 
- axios.post("http://localhost:8080/signin",{name:name,email:email,password:pass}).then((response)=>{//then is a chaining
+ axios.post("http://localhost:8080/chatease/register",{userName:name,email:email,password:pass}).then((response)=>{//then is a chaining
      console.log(response)
   }).catch((e)=>{
      console.log(e)
