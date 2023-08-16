@@ -2,7 +2,7 @@ import { TextField} from '@mui/material';
 import {Button} from '@mui/material';
 import {Grid,Stack} from '@mui/material'
 import React, {useRef} from 'react';
-import { useNavigate,Routes,Route} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import logo from '../image/logo.jpg'
 import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
@@ -18,7 +18,7 @@ import { Navigate } from 'react-router-dom';
        
         const email=emailValue.current?.value || '';
         const pass=passwordValue.current?.value || '';
-        axios.post("http://localhost:8080/signin",{email:email,password:pass}).then((response)=>{
+        axios.post("http://localhost:8080/chatease/login",{email:email,password:pass}).then((response)=>{
         if(response.status===200){
           navigate("/chatease/homepage");
         }}

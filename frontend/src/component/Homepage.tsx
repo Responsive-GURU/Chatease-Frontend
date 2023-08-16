@@ -37,7 +37,16 @@ const Homepage=()=>{
     
     }
     const [currentTime, setCurrentTime] = useState(new Date());
-
+    
+    useEffect(() => {
+      axios.get('http://localhost:8080/chatease/allpost')
+          .then(response => {
+              setAllPost(response.data);
+          })
+          .catch(error => {
+              console.error('Error fetching posts:', error);
+          });
+  }, [open]);
     useEffect(() => {
             setCurrentTime(new Date());
     }, []);
@@ -47,7 +56,7 @@ const Homepage=()=>{
       setOpen(false);
       setDisplay(true);
       axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval}).then((response)=>{
-        setAllPost(response.data);
+        console.log(response);
   
   }).catch((e)=>{
      console.log(e)
@@ -145,9 +154,10 @@ const Homepage=()=>{
               </Grid>
            </Grid>
           </Grid>
-          <Grid container display="flex" justifyContent="center">
 
-            {display &&<Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
+          {allPost?.map(post=>(
+            <Grid container display="flex" justifyContent="center">
+            <Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
             <CardHeader      
               avatar={
                 <Avatar>
@@ -170,22 +180,24 @@ const Homepage=()=>{
               </Menu>
             </Grid>}
               title="chat-ease" 
-              subheader={formattedTime}
+              subheader={post.date}
             />
             {image &&<CardMedia
                     component="img"
                     height="220"
-                    image={URL.createObjectURL(image)}
+                    image={post.image}
                     alt="abc"
                     />
                     }
             <CardContent>
-                <Stack direction="row"><span>{textval}</span></Stack>
+                <Stack direction="row"><span>{post.caption}</span></Stack>
                 <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
             </CardContent>
-          </Card>}
+          </Card>
           </Grid>
-       </Grid>
+     
+          ))}
+            </Grid>
     )
 }
 export default Homepage;
