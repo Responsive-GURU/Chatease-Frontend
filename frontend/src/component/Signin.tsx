@@ -18,7 +18,7 @@ import { Navigate } from 'react-router-dom';
        
         const email=emailValue.current?.value || '';
         const pass=passwordValue.current?.value || '';
-        axios.post("http://localhost:8080/signin",{email:email,password:pass}).then((response)=>{
+        axios.post("http://localhost:8080/chaease/login",{email:email,password:pass}).then((response)=>{
         if(response.status===200){
           navigate("/chatease/homepage");
         }}

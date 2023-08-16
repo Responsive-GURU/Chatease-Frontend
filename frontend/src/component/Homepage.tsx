@@ -41,7 +41,7 @@ const Homepage=()=>{
     const handleClose1 = () => {
       setOpen(false);
       setDisplay(true);
-      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image)}).then((response)=>{
+      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image), email:"moses@gmail.com"}).then((response)=>{
      console.log(response)
   }).catch((e)=>{
      console.log(e)
