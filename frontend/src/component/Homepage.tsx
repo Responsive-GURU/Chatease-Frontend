@@ -19,8 +19,12 @@ interface userpost{
   caption:string,
   date:string,
   image:File,
+
+  id:string
 }
 const Homepage=()=>{
+  const a = "C://chatease-img/1692261090041_ZORO (2).jpg"
+
     const[image,setImage]=useState<File|null>(null);
     const [check,setCheck]=useState(true);
     const [display,setDisplay]=useState(false);
@@ -28,13 +32,16 @@ const Homepage=()=>{
     const [count,Setcount]=useState(0)
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
-    const [textval,setTextval]=useState<String|null>(null);  
+    const [textval,setTextval]=useState<string>('');  
     const[allPost,setAllPost]=useState<userpost[]>();
     const [value1,setValue1]=useState<null|HTMLElement>(null);
     const { email} = useParams<{ email: string}>();
+  
     const open1=Boolean(value1);
-    const ImageUpload=(event:React.ChangeEvent<HTMLInputElement>)=>{
-     setImage(event.target.files?.[0]||null) //? will not throw an error instead it returns undefined
+    const ImageUpload=(e:React.ChangeEvent<HTMLInputElement>)=>{
+      if (e.target.files && e.target.files[0]) {
+        setImage(e.target.files[0]);
+    }//? will not throw an error instead it returns undefined
      setCheck(false);
     
     }
@@ -53,19 +60,21 @@ const Homepage=()=>{
             setCurrentTime(new Date());
     }, []);
 
-   
-    const handleClose1 = () => {
-      setOpen(false);
-      setDisplay(true);
-      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval,email:email}).then((response)=>{
-        console.log(response);
+    const formattedTime = currentTime.toLocaleTimeString();
+  //   const handleClose1 = () => {
+  //     setOpen(false);
+  //     setDisplay(true);
+  //     axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval,email:email}).then((response)=>{
+  //       console.log(response);
   
-  }).catch((e)=>{
-     console.log(e)
-  })
+  // }).catch((e)=>{
+  //    console.log(e)
+  // })
+  //   };
+   
+    const handleOpen = () => {
+      setOpen(true);
     };
-   
-  
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -88,6 +97,24 @@ const Homepage=()=>{
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setValue(event.currentTarget);
     };
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setOpen(false);
+      setDisplay(true);
+      const formData = new FormData();
+      formData.append('caption',textval);
+      formData.append('image', image || ''); // Handle if image is null blob stores b
+      formData.append('date',  currentTime.toISOString());
+      formData.append('email',email || '')
+      try {
+           axios.post('http://localhost:8080/adding', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+          });
+          // Clear form fields or update the post list
+      } catch (error) {
+          console.error('Error adding post:', error);
+      }
+  };
     return(
         <Grid>
           <Grid container justifyContent="space-between" sx={{borderBottom:'2px solid blue',backgroundColor:"lightBlue", padding:'15px 5px',position:'sticky',top:'0px'}}>
@@ -110,6 +137,7 @@ const Homepage=()=>{
                <Button  variant="outlined" onClick={handleClickOpen} style={{marginLeft:'10px',width:"200px",color:"black",backgroundColor:"white"}}>
                  <span style={{marginRight:"70px"}}>Start Post</span>
                 </Button>
+                <form onSubmit={handleSubmit}>
                 <Dialog
                   onClose={handleClose}
                   open={open}
@@ -120,11 +148,13 @@ const Homepage=()=>{
                      <Button variant="text" onClick={handleClose}>X</Button>
                   </Grid>
                 </DialogTitle>
+                
                 <DialogContent dividers>
                   <Grid container flexDirection="column">
                     <Grid item display='flex' justifyContent="center" alignItems="center">{image&& <img src={URL.createObjectURL(image)}  height="200%" width="45%" alt="hai"></img>}</Grid>
                     <Grid item my={2} display='flex' justifyContent="center" alignItems="center" style={{position:"relative"}}>
                     {check && <Button variant="contained">+</Button>}
+                    
                     <input
                     type="file"
                     style={{
@@ -134,9 +164,9 @@ const Homepage=()=>{
                       opacity:0,
                       width: "80%",
                       height: "90%",
-                    
+                      
                     }}
-                    accept="image/jpeg"
+                    accept="image"
                     onChange={ImageUpload}
                     />
                     </Grid>
@@ -146,16 +176,18 @@ const Homepage=()=>{
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose1}>
+                <Button type="submit">
                   Post
                 </Button>
               </DialogActions>
               </Dialog>
+              </form>
               </Grid>
            </Grid>
           </Grid>
 
           {allPost?.map(post=>(
+            <div key={post.id}>
             <Grid container display="flex" justifyContent="center">
             <Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
             <CardHeader      
@@ -185,7 +217,7 @@ const Homepage=()=>{
             {image &&<CardMedia
                     component="img"
                     height="220"
-                    image={URL.createObjectURL(post.image)}
+                    image={image && URL.createObjectURL(post.image)}
                     alt="abc"
                     />
                     }
@@ -195,9 +227,9 @@ const Homepage=()=>{
             </CardContent>
           </Card>
           </Grid>
-     
+          </div>
           ))}
-          <h1>kddk</h1>
+          <img src={a} alt="123" />
             </Grid>
     )
 }
