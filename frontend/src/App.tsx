@@ -7,13 +7,11 @@ import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from './component/Homepage';
 import Frontpage from './component/Frontpage';
 import Forgot from './component/Forgot';
-import App1 from './component/App1';
  function App(){
  
   return (
     <>   
     <BrowserRouter>
-    <App1/>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />
           <Route path="/chatease/login" element={<Signin/>} />
