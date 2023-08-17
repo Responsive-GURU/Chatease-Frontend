@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from "react-router-dom";
+import SimpleSnackbar from "./SimpleSnackbar";
 import axios from "axios";
 
 
@@ -16,11 +17,12 @@ const Homepage=()=>{
     const [open, setOpen] =useState(false);
     const [textval,setTextval]=useState<string>('');  
     const { email} = useParams<{ email: string}>();
-  
+    const [count,setCount]=useState(0);
     
     const ImageUpload=(e:React.ChangeEvent<HTMLInputElement>)=>{
       if (e.target.files && e.target.files[0]) {
         setImage(e.target.files[0]);
+        setCount(count+1);
     }//? will not throw an error instead it returns undefined
      setCheck(false);
     
@@ -41,26 +43,27 @@ const Homepage=()=>{
 
     const textchange=(event:React.ChangeEvent<HTMLInputElement>)=>{
        setTextval(event.target.value);
+       setCount(count+1);
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+
+    const handleClick = (e: React.FormEvent) => {
+      e.stopPropagation();
       setOpen(false);
       setDisplay(true);
-      const formData = new FormData();
-      formData.append('caption',textval);
-      formData.append('image', image || ''); // Handle if image is null blob stores b
-      formData.append('date',  currentTime.toISOString());
-      formData.append('email',email || '')
-      try {
-              await axios.post('http://localhost:8080/adding', formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-          });
-          // Clear form fields or update the post list
-      } catch (error) {
-          console.error('Error adding post:', error);
-      }
-  };
+      if(count===2){
+       const formData = new FormData();
+        formData.append('caption',textval);
+        formData.append('image', image || ''); // Handle if image is null blob stores b
+        formData.append('date',  currentTime.toISOString());
+        formData.append('email',email || '')
+       axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval,email:email}).then((response)=>{
+        console.log(response);
+  
+  }).catch((e)=>{
+     console.log(e)
+  })}
+    };
     return(
         <Grid>
             <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
@@ -71,7 +74,6 @@ const Homepage=()=>{
                <Button  variant="outlined" onClick={handleClickOpen} style={{marginLeft:'10px',width:"200px",color:"black",backgroundColor:"white"}}>
                  <span style={{marginRight:"70px"}}>Start Post</span>
                 </Button>
-                <form onSubmit={handleSubmit}>
                 <Dialog
                   onClose={handleClose}
                   open={open}
@@ -110,15 +112,14 @@ const Homepage=()=>{
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button type="submit">
+                <Button onClick={handleClick}>
                   Post
                 </Button>
               </DialogActions>
               </Dialog>
-              </form>
               </Grid>
            </Grid>
           </Grid>
-    )
-}
+    )}
+
 export default Homepage;

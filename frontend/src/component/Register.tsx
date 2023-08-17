@@ -26,10 +26,11 @@ export const Register=()=>{
     
     if(regex.test(pass)){
       if(pass===cpass){
-        alert("ok")
-        navigate(`/chatease/login`);
-      
-    }
+          setTimeout(() => {
+            alert("logged in successfully");
+            navigate(`/chatease/login`);
+          }, 5000);
+        }
       else{
         alert("incorrect password")
       }

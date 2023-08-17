@@ -18,7 +18,6 @@ interface userpost{
   caption:string,
   date:string,
   image:File,
-
   id:string
 }
 const Homepage=()=>{
@@ -94,24 +93,8 @@ const Homepage=()=>{
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setValue(event.currentTarget);
     };
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setOpen(false);
-      setDisplay(true);
-      const formData = new FormData();
-      formData.append('caption',textval);
-      formData.append('image', image || ''); // Handle if image is null blob stores b
-      formData.append('date',  currentTime.toISOString());
-      formData.append('email',email || '')
-      try {
-              await axios.post('http://localhost:8080/adding', formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-          });
-          // Clear form fields or update the post list
-      } catch (error) {
-          console.error('Error adding post:', error);
-      }
-  };
+   
+  
     return(
         <Grid>
           <Grid container justifyContent="space-between" sx={{borderBottom:'2px solid blue',backgroundColor:"lightBlue", padding:'15px 5px',position:'sticky',top:'0px'}}>
@@ -126,8 +109,7 @@ const Homepage=()=>{
             </Grid>
           </Grid>
           <Grid container justifyContent="center" sx={{marginTop:'30px'}}>
-           <Grid item><Userpost/></Grid> 
-           <Grid item><Postdisplay/></Grid>
+           <Grid item><Userpost/> <Postdisplay/></Grid> 
           </Grid>
         </Grid>
     )

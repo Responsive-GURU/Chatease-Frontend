@@ -8,6 +8,7 @@ import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom';
+import SimpleSnackbar from './SimpleSnackbar';
  const Signin=()=>{
     const emailValue=useRef<HTMLInputElement>(null)
     const passwordValue=useRef<HTMLInputElement>(null)
@@ -20,7 +21,8 @@ import { Navigate } from 'react-router-dom';
         const pass=passwordValue.current?.value || '';
         axios.post("http://localhost:8080/chatease/login",{email:email,password:pass}).then((response)=>{
         if(response.status===200){
-          navigate("/chatease/homepage/$encodeURIComponent(email)");
+            <SimpleSnackbar/>
+            navigate(`/chatease/homepage/${encodeURIComponent(email)}`);
         }}
         ).catch((e)=>{
           console.log(e);
