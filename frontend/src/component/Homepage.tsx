@@ -13,6 +13,7 @@ import Person2Icon from '@mui/icons-material/Person2';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import { useParams } from "react-router-dom";
 import axios from "axios";
 interface userpost{
   caption:string,
@@ -27,9 +28,10 @@ const Homepage=()=>{
     const [count,Setcount]=useState(0)
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
-    const [textval,setTextval]=useState<String|null>(null);
+    const [textval,setTextval]=useState<String|null>(null);  
     const[allPost,setAllPost]=useState<userpost[]>();
     const [value1,setValue1]=useState<null|HTMLElement>(null);
+    const { email} = useParams<{ email: string}>();
     const open1=Boolean(value1);
     const ImageUpload=(event:React.ChangeEvent<HTMLInputElement>)=>{
      setImage(event.target.files?.[0]||null) //? will not throw an error instead it returns undefined
@@ -55,7 +57,7 @@ const Homepage=()=>{
     const handleClose1 = () => {
       setOpen(false);
       setDisplay(true);
-      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval}).then((response)=>{
+      axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval,email:email}).then((response)=>{
         console.log(response);
   
   }).catch((e)=>{
@@ -91,7 +93,7 @@ const Homepage=()=>{
     return(
         <Grid>
           <Grid container justifyContent="space-between" sx={{borderBottom:'2px solid blue',backgroundColor:"lightBlue", padding:'15px 5px',position:'sticky',top:'0px'}}>
-            {/* 15px->top and bottom  5px ->right and left */}
+         
             <Grid item display="flex" justifyContent="center" alignItems="center">
               <img src={logo} alt="asa" width="20%"></img>
               <span style={{color:"black",marginLeft:"30px"}}>CHATEASE</span>
