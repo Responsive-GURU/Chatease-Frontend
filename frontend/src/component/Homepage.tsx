@@ -1,11 +1,8 @@
-import {Grid,DialogActions,Card,CardHeader,Stack,Menu,MenuItem,CardContent,CardMedia,Avatar,Box} from "@mui/material";
+import {Grid,Card,CardHeader,Stack,Menu,MenuItem,CardContent,CardMedia,Avatar} from "@mui/material";
 import { useState,useEffect} from "react";
 import { TextField } from '@mui/material';
 import {Button} from '@mui/material';
 import IconButton from "@mui/material/IconButton";
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import logo from '../image/logo.jpg'
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -14,7 +11,9 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import { useParams } from "react-router-dom";
+import Userpost from './Userpost'
 import axios from "axios";
+import Postdisplay from './Postdisplay'
 interface userpost{
   caption:string,
   date:string,
@@ -23,7 +22,7 @@ interface userpost{
   id:string
 }
 const Homepage=()=>{
-  const a = "C://chatease-img/1692261090041_ZORO (2).jpg"
+  
 
     const[image,setImage]=useState<File|null>(null);
     const [check,setCheck]=useState(true);
@@ -98,7 +97,7 @@ const Homepage=()=>{
       setValue(event.currentTarget);
     };
     const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+      e.stopPropagation();
       setOpen(false);
       setDisplay(true);
       const formData = new FormData();
@@ -107,7 +106,7 @@ const Homepage=()=>{
       formData.append('date',  currentTime.toISOString());
       formData.append('email',email || '')
       try {
-           axios.post('http://localhost:8080/adding', formData, {
+              await axios.post('http://localhost:8080/adding', formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
           });
           // Clear form fields or update the post list
@@ -129,108 +128,11 @@ const Homepage=()=>{
             </Grid>
           </Grid>
           <Grid container justifyContent="center" sx={{marginTop:'30px'}}>
-            <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
-              <Grid item display="flex" justifyContent="center" alignItems="center" sx={{marginLeft:"20px"}}>
-              <Avatar>
-                  C
-                </Avatar>
-               <Button  variant="outlined" onClick={handleClickOpen} style={{marginLeft:'10px',width:"200px",color:"black",backgroundColor:"white"}}>
-                 <span style={{marginRight:"70px"}}>Start Post</span>
-                </Button>
-                <form onSubmit={handleSubmit}>
-                <Dialog
-                  onClose={handleClose}
-                  open={open}
-                >
-                <DialogTitle>
-                  <Grid container justifyContent="space-between">
-                     <span style={{color:"blue"}}>Create Post</span>
-                     <Button variant="text" onClick={handleClose}>X</Button>
-                  </Grid>
-                </DialogTitle>
-                
-                <DialogContent dividers>
-                  <Grid container flexDirection="column">
-                    <Grid item display='flex' justifyContent="center" alignItems="center">{image&& <img src={URL.createObjectURL(image)}  height="200%" width="45%" alt="hai"></img>}</Grid>
-                    <Grid item my={2} display='flex' justifyContent="center" alignItems="center" style={{position:"relative"}}>
-                    {check && <Button variant="contained">+</Button>}
-                    
-                    <input
-                    type="file"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      opacity:0,
-                      width: "80%",
-                      height: "90%",
-                      
-                    }}
-                    accept="image"
-                    onChange={ImageUpload}
-                    />
-                    </Grid>
-                  </Grid>
-                <Grid item display="flex" justifyContent="center" alignItems="center">
-                  <TextField variant="standard" placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
-                </Grid>
-              </DialogContent>
-              <DialogActions>
-                <Button type="submit">
-                  Post
-                </Button>
-              </DialogActions>
-              </Dialog>
-              </form>
-              </Grid>
-           </Grid>
+           <Grid item><Userpost/><Postdisplay/></Grid> 
+          
           </Grid>
-
-          {allPost?.map(post=>(
-            <div key={post.id}>
-            <Grid container display="flex" justifyContent="center">
-            <Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
-            <CardHeader      
-              avatar={
-                <Avatar>
-                  C
-                </Avatar>
-              }
-            action={
-              <Grid>
-              <IconButton onClick={handleClick}>
-                <MoreVertIcon> </MoreVertIcon>
-              </IconButton>
-              <Menu
-                id="item"
-                open={open1}
-                anchorEl={value1}//it is used to position the menu relative to the specific element
-                onClose={()=>setValue(null)}>
-              {/* <MenuItem>AddImage <input type="file" accept="image/png"/></MenuItem> */}
-                <MenuItem>EditPost</MenuItem>
-                <MenuItem>DeletePost</MenuItem>
-              </Menu>
-            </Grid>}
-              title="chat-ease" 
-              subheader={post.date}
-            />
-            {image &&<CardMedia
-                    component="img"
-                    height="220"
-                    image={image && URL.createObjectURL(post.image)}
-                    alt="abc"
-                    />
-                    }
-            <CardContent>
-                <Stack direction="row"><span>{post.caption}</span></Stack>
-                <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
-            </CardContent>
-          </Card>
-          </Grid>
-          </div>
-          ))}
-          <img src={a} alt="123" />
-            </Grid>
+        </Grid>
     )
 }
+
 export default Homepage;
