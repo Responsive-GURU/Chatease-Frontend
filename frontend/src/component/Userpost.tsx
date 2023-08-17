@@ -46,24 +46,35 @@ const Homepage=()=>{
        setCount(count+1);
     }
 
-
-    const handleClick = (e: React.FormEvent) => {
-      e.stopPropagation();
+    const handleSubmit =  (e: React.FormEvent) => {
       setOpen(false);
       setDisplay(true);
       if(count===2){
-       const formData = new FormData();
-        formData.append('caption',textval);
-        formData.append('image', image || ''); // Handle if image is null blob stores b
-        formData.append('date',  currentTime.toISOString());
-        formData.append('email',email || '')
-       axios.post("http://localhost:8080/chatease/userpost",{image:image && URL.createObjectURL(image),date:currentTime,caption:textval,email:email}).then((response)=>{
+      const formData = new FormData();
+      formData.append('caption',textval);
+      formData.append('date',  currentTime.toISOString());
+      formData.append('image', image || ''); // Handle if image is null blob stores b
+      formData.append('email',email || '')
+
+     
+      axios.post("http://localhost:8080/chatease/userpost",formData,{headers: {
+        'Content-Type': 'multipart/form-data'
+      }}).then((response)=>{
         console.log(response);
-  
   }).catch((e)=>{
      console.log(e)
   })}
-    };
+      
+      // console.log(formData)
+      
+      //     console.log("post")
+      //          axios.post('http://localhost:8080/chatease/userpost', {caption:textval,date:currentTime,image:image,email}, {
+      //         headers: { 'Content-Type': 'multipart/form-data' },
+      //     }).then((response)=>{
+      //       console.log(response)
+      //     })
+
+  };
     return(
         <Grid>
             <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
@@ -112,7 +123,7 @@ const Homepage=()=>{
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClick}>
+                <Button type="submit" onClick={handleSubmit}>
                   Post
                 </Button>
               </DialogActions>

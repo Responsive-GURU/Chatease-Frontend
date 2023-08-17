@@ -21,8 +21,7 @@ import SimpleSnackbar from './SimpleSnackbar';
         const pass=passwordValue.current?.value || '';
         axios.post("http://localhost:8080/chatease/login",{email:email,password:pass}).then((response)=>{
         if(response.status===200){
-            <SimpleSnackbar/>
-            navigate(`/chatease/homepage/${encodeURIComponent(email)}`);
+          navigate(`/chatease/homepage/${encodeURIComponent(email)}`);
         }}
         ).catch((e)=>{
           console.log(e);

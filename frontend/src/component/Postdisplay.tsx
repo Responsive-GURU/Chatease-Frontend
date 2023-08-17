@@ -19,8 +19,9 @@ import axios from "axios";
 interface userpost{
   caption:string,
   date:string,
-  image:File,
-  id:string
+  image:string,
+  id:string,
+  userName:string
 }
 const Homepage=()=>{
     const[image,setImage]=useState<File|null>(null);
@@ -64,7 +65,8 @@ const Homepage=()=>{
             <CardHeader      
               avatar={
                 <Avatar>
-                  C
+                 {post.userName}
+                  
                 </Avatar>
               }
             action={
@@ -82,17 +84,18 @@ const Homepage=()=>{
                 <MenuItem>DeletePost</MenuItem>
               </Menu>
             </Grid>}
-              title="chat-ease" 
+              title={post.userName}
               subheader={post.date}
             />
-            {image &&<CardMedia
+            <CardMedia
                     component="img"
                     height="220"
-                    image={image && URL.createObjectURL(post.image)}
+                    src={require(`../media/${post.image}`)}
                     alt="abc"
                     />
-                    }
+  
             <CardContent>
+                
                 <Stack direction="row"><span>{post.caption}</span></Stack>
                 <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
             </CardContent>
