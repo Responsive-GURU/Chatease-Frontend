@@ -19,8 +19,11 @@ interface userpost{
   caption:string,
   date:string,
   image:File,
+<<<<<<< HEAD
   id:string
 
+=======
+>>>>>>> 4fb2a9242ab46cc53bd97281e0f502fc27d586da
 }
 const Homepage=()=>{
     const[image,setImage]=useState<File|null>(null);
@@ -215,7 +218,11 @@ const Homepage=()=>{
             {image &&<CardMedia
                     component="img"
                     height="220"
+<<<<<<< HEAD
                     image={image && URL.createObjectURL(post.image)}
+=======
+                    image={URL.createObjectURL(post.image)}
+>>>>>>> 4fb2a9242ab46cc53bd97281e0f502fc27d586da
                     alt="abc"
                     />
                     }
@@ -227,6 +234,7 @@ const Homepage=()=>{
           </Grid>
           </div>
           ))}
+          <h1>kddk</h1>
             </Grid>
     )
 }
