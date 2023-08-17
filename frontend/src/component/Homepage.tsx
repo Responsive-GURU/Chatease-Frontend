@@ -53,7 +53,7 @@ const Homepage=()=>{
             setCurrentTime(new Date());
     }, []);
 
-    const formattedTime = currentTime.toLocaleTimeString();
+   
     const handleClose1 = () => {
       setOpen(false);
       setDisplay(true);
@@ -65,9 +65,7 @@ const Homepage=()=>{
   })
     };
    
-    const handleOpen = () => {
-      setOpen(true);
-    };
+  
 
     const handleClickOpen = () => {
       setOpen(true);
