@@ -15,7 +15,7 @@ const Frontpage=()=>{
          </Grid>
       </Grid>
       <Grid container> 
-       <Grid item sx={{height:520,width:650,backgroundImage:`url(${chat})`}}></Grid>
+       <Grid item sx={{height:565,width:650,backgroundImage:`url(${chat})`}}></Grid>
        <Grid container sx={{width:400,height:490,my:2,mx:'auto'}}>
         <Register/>
        </Grid>

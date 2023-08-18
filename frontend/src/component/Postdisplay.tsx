@@ -25,28 +25,28 @@ interface userpost{
 }
 const Homepage=()=>{
     const[image,setImage]=useState<File|null>(null);
-    
+    const[postId,setPostId]=useState<String>('')
     const [value,setValue]=useState<null|HTMLElement>(null);
     const [count,Setcount]=useState(0)
     const [open, setOpen] =useState(false);
     const [count2,setCount2]=useState(false)
     const[allPost,setAllPost]=useState<userpost[]>();
     const [value1,setValue1]=useState<null|HTMLElement>(null);
-    const { email} = useParams<{ email: string}>();
+    const { email} = useParams<{ email: string}>();    
     const open1=Boolean(value1);
     
     useEffect(() => {
       axios.get('http://localhost:8080/chatease/allpost')
           .then(response => {
               setAllPost(response.data.reverse());
-
+              
           })
           .catch(error => {
               console.error('Error fetching posts:', error);
           });
   }, [open]);
     const change=()=>{
-      axios.post("http://localhost:8080/chatease/like",{})
+      // axios.post("http://localhost:8080/chatease/like",{})
       Setcount(count+1)
     }
 
@@ -58,10 +58,10 @@ const Homepage=()=>{
       setValue(event.currentTarget);
     };
     
-    return(
-        <Grid>
+    return(  
+          <>
           {allPost?.map(post=>(
-            <div key={post.id}>
+            <Grid key={post.id}>
             <Grid container display="flex" justifyContent="center">
             <Card sx={{maxWidth:370, maxHeight:500, mx:'auto',my:5}}>
             <CardHeader      
@@ -95,17 +95,15 @@ const Homepage=()=>{
                     src={require(`../media/${post.image}`)}
                     alt="abc"
                     />
-  
-            <CardContent>
-                
+            <CardContent>     
                 <Stack direction="row"><span>{post.caption}</span></Stack>
                 <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
             </CardContent>
           </Card>
           </Grid>
-          </div>
+          </Grid>
           ))}
-        </Grid>
+          </>     
     )
 }
 export default Homepage;
