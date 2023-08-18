@@ -84,7 +84,7 @@ const Homepage=()=>{
                 <MenuItem>DeletePost</MenuItem>
               </Menu>
             </Grid>}
-              title={post.userName}
+              title={post?.userName.charAt(0)}
               subheader={post.date}
             />
             <CardMedia

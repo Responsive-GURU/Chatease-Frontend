@@ -49,7 +49,7 @@ const Homepage=()=>{
     const handleSubmit =  (e: React.FormEvent) => {
       setOpen(false);
       setDisplay(true);
-      if(count===2){
+      setCount(0);
       const formData = new FormData();
       formData.append('caption',textval);
       formData.append('date',  currentTime.toISOString());
@@ -74,7 +74,6 @@ const Homepage=()=>{
       //       console.log(response)
       //     })
 
-  };
     return(
         <Grid>
             <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
@@ -123,7 +122,7 @@ const Homepage=()=>{
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button type="submit" onClick={handleSubmit}>
+                count<Button type="submit" onClick={handleSubmit} disabled>
                   Post
                 </Button>
               </DialogActions>
