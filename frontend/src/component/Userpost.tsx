@@ -16,11 +16,12 @@ const Homepage=()=>{
     const [open, setOpen] =useState(false);
     const [textval,setTextval]=useState<string>('');  
     const { email} = useParams<{ email: string}>();
-  
+    const [count,setCount]=useState(0);
     
     const ImageUpload=(e:React.ChangeEvent<HTMLInputElement>)=>{
       if (e.target.files && e.target.files[0]) {
         setImage(e.target.files[0]);
+        setCount(count+1);
     }//? will not throw an error instead it returns undefined
      setCheck(false);
     
@@ -41,12 +42,13 @@ const Homepage=()=>{
 
     const textchange=(event:React.ChangeEvent<HTMLInputElement>)=>{
        setTextval(event.target.value);
+       
     }
 
     const handleSubmit =  (e: React.FormEvent) => {
       setOpen(false);
       setDisplay(true);
-
+      setCount(0);
       const formData = new FormData();
       formData.append('caption',textval);
       formData.append('date',  currentTime.toISOString());
@@ -58,6 +60,9 @@ const Homepage=()=>{
         'Content-Type': 'multipart/form-data'
       }}).then((response)=>{
         console.log(response);
+        setImage(null);
+        setCheck(true);
+
   }).catch((e)=>{
      console.log(e)
   })
@@ -77,7 +82,7 @@ const Homepage=()=>{
             <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
               <Grid item display="flex" justifyContent="center" alignItems="center" sx={{marginLeft:"20px"}}>
               <Avatar>
-                  C
+                  {email?.charAt(0).toUpperCase()}
                 </Avatar>
                <Button  variant="outlined" onClick={handleClickOpen} style={{marginLeft:'10px',width:"200px",color:"black",backgroundColor:"white"}}>
                  <span style={{marginRight:"70px"}}>Start Post</span>
@@ -98,7 +103,7 @@ const Homepage=()=>{
                   <Grid container flexDirection="column">
                     <Grid item display='flex' justifyContent="center" alignItems="center">{image&& <img src={URL.createObjectURL(image)}  height="200%" width="45%" alt="hai"></img>}</Grid>
                     <Grid item my={2} display='flex' justifyContent="center" alignItems="center" style={{position:"relative"}}>
-                    {check && <Button variant="contained">+</Button>}
+                    <Button variant="contained">+</Button>
                     
                     <input
                     type="file"
@@ -113,17 +118,18 @@ const Homepage=()=>{
                     }}
                     accept="image"
                     onChange={ImageUpload}
+                    required
                     />
                     </Grid>
                   </Grid>
                 <Grid item display="flex" justifyContent="center" alignItems="center">
-                  <TextField variant="standard" placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
+                  <TextField variant="standard" required placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button type="submit" onClick={handleSubmit}>
+                {count===1 && textval!=='' ?<Button type="submit" onClick={handleSubmit}>
                   Post
-                </Button>
+                </Button>:<Button type="submit" disabled>Post</Button>}
               </DialogActions>
               </Dialog>
               </form>
