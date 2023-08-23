@@ -26,18 +26,18 @@ export const Register=()=>{
       setMessage(false);
     };
 
-     const value1=useRef<HTMLInputElement>(null)
-     const value2=useRef<HTMLInputElement>(null)
-     const value3=useRef<HTMLInputElement>(null)
-     const value4=useRef<HTMLInputElement>(null)
+     const namevalue=useRef<HTMLInputElement>(null)
+     const emailvalue=useRef<HTMLInputElement>(null)
+     const password=useRef<HTMLInputElement>(null)
+     const cpassword=useRef<HTMLInputElement>(null)
      const navigate = useNavigate();   
     
    const type1=(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    const name =value1.current?.value || '';
-    const email=value2.current?.value || '';
-    const pass=value3.current?.value || '';
-    const cpass=value4.current?.value || '';
+    const name =namevalue.current?.value || '';
+    const email=emailvalue.current?.value || '';
+    const pass=password.current?.value || '';
+    const cpass=cpassword.current?.value || '';
     const regex=new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$!@%^&*()]).{8,}')
     
     if(regex.test(pass)){
@@ -79,10 +79,10 @@ export const Register=()=>{
        <Grid container my={1} justifyContent="center"><img src={logo} alt="asa" width="10%" height="90%"></img><span style={{color:"blue",fontSize:"22px"}}>REGISTER</span></Grid>
        <Grid container  justifyContent="center">
           <form onSubmit={type1}>
-            <Grid item my={1}><TextField required inputRef={value1} type="text" label="name"></TextField></Grid>
-            <Grid item my={4}><TextField required  inputRef={value2} type="email" label="email"></TextField></Grid> 
-            <Grid item my={4}><TextField required  inputRef={value3} type="password" label="password"></TextField></Grid>
-            <Grid item my={3}><TextField required  inputRef={value4} type="password" label="confirm password"></TextField></Grid>
+            <Grid item my={1}><TextField required inputRef={namevalue} type="text" label="name"></TextField></Grid>
+            <Grid item my={4}><TextField required  inputRef={emailvalue} type="email" label="email"></TextField></Grid> 
+            <Grid item my={4}><TextField required  inputRef={password} type="password" label="password"></TextField></Grid>
+            <Grid item my={3}><TextField required  inputRef={cpassword} type="password" label="confirm password"></TextField></Grid>
             <Grid item><Stack direction="row" spacing={4}><Button variant="text" size="small"><GoogleIcon></GoogleIcon></Button><Button type="submit" variant="contained" size="medium">submit</Button></Stack></Grid>
             <Grid item my={2}>Already have an account?<Link  href="" onClick={change}>Login</Link></Grid>
           </form>
