@@ -7,7 +7,6 @@ import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from './component/Homepage';
 import Frontpage from './component/Frontpage';
 import Forgot from './component/Forgot';
-import SimpleSnackbar from './component/SimpleSnackbar';
  function App(){
  
   return (
