@@ -38,13 +38,15 @@ const Homepage=()=>{
     useEffect(() => {
       axios.get('http://localhost:8080/chatease/allpost')
           .then(response => {
-              setAllPost(response.data);
+              setAllPost(response.data.reverse());
+
           })
           .catch(error => {
               console.error('Error fetching posts:', error);
           });
   }, [open]);
     const change=()=>{
+      axios.post("http://localhost:8080/chatease/like",{})
       Setcount(count+1)
     }
 
@@ -65,7 +67,7 @@ const Homepage=()=>{
             <CardHeader      
               avatar={
                 <Avatar>
-                 {post.userName}
+                 {post?.userName.charAt(0).toUpperCase()}
                   
                 </Avatar>
               }
@@ -84,8 +86,8 @@ const Homepage=()=>{
                 <MenuItem>DeletePost</MenuItem>
               </Menu>
             </Grid>}
-              title={post?.userName.charAt(0)}
-              subheader={post.date}
+              title={post.userName}
+              subheader={post.date.substring(0,10)}
             />
             <CardMedia
                     component="img"

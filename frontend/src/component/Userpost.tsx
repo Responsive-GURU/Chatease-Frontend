@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from "react-router-dom";
-import SimpleSnackbar from "./SimpleSnackbar";
 import axios from "axios";
 
 
@@ -43,7 +42,7 @@ const Homepage=()=>{
 
     const textchange=(event:React.ChangeEvent<HTMLInputElement>)=>{
        setTextval(event.target.value);
-       setCount(count+1);
+       
     }
 
     const handleSubmit =  (e: React.FormEvent) => {
@@ -56,14 +55,17 @@ const Homepage=()=>{
       formData.append('image', image || ''); // Handle if image is null blob stores b
       formData.append('email',email || '')
 
-     
+
       axios.post("http://localhost:8080/chatease/userpost",formData,{headers: {
         'Content-Type': 'multipart/form-data'
       }}).then((response)=>{
         console.log(response);
+        setImage(null);
+        setCheck(true);
+
   }).catch((e)=>{
      console.log(e)
-  })}
+  })
       
       // console.log(formData)
       
@@ -73,17 +75,18 @@ const Homepage=()=>{
       //     }).then((response)=>{
       //       console.log(response)
       //     })
-
+}
     return(
         <Grid>
             <Grid container  sx={{border:'1px solid black', borderRadius:'10px',width:'300px',height:'90px'}}>
               <Grid item display="flex" justifyContent="center" alignItems="center" sx={{marginLeft:"20px"}}>
               <Avatar>
-                  C
+                  {email?.charAt(0).toUpperCase()}
                 </Avatar>
                <Button  variant="outlined" onClick={handleClickOpen} style={{marginLeft:'10px',width:"200px",color:"black",backgroundColor:"white"}}>
                  <span style={{marginRight:"70px"}}>Start Post</span>
                 </Button>
+                <form onSubmit={handleSubmit}>
                 <Dialog
                   onClose={handleClose}
                   open={open}
@@ -99,7 +102,7 @@ const Homepage=()=>{
                   <Grid container flexDirection="column">
                     <Grid item display='flex' justifyContent="center" alignItems="center">{image&& <img src={URL.createObjectURL(image)}  height="200%" width="45%" alt="hai"></img>}</Grid>
                     <Grid item my={2} display='flex' justifyContent="center" alignItems="center" style={{position:"relative"}}>
-                    {check && <Button variant="contained">+</Button>}
+                    <Button variant="contained">+</Button>
                     
                     <input
                     type="file"
@@ -114,22 +117,24 @@ const Homepage=()=>{
                     }}
                     accept="image"
                     onChange={ImageUpload}
+                    required
                     />
                     </Grid>
                   </Grid>
                 <Grid item display="flex" justifyContent="center" alignItems="center">
-                  <TextField variant="standard" placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
+                  <TextField variant="standard" required placeholder="comment" style={{marginLeft:'20px'}} multiline onChange={textchange}></TextField>
                 </Grid>
               </DialogContent>
               <DialogActions>
-                count<Button type="submit" onClick={handleSubmit} disabled>
+                {count===1 && textval!=='' ?<Button type="submit" onClick={handleSubmit}>
                   Post
-                </Button>
+                </Button>:<Button type="submit" disabled>Post</Button>}
               </DialogActions>
               </Dialog>
+              </form>
               </Grid>
            </Grid>
           </Grid>
-    )}
-
+    )
+}
 export default Homepage;

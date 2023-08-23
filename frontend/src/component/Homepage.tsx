@@ -10,6 +10,7 @@ const Homepage=()=>{
     return(
         <Grid>
           <Grid container justifyContent="space-between" sx={{borderBottom:'2px solid blue',backgroundColor:"lightBlue", padding:'15px 5px',position:'sticky',top:'0px',zIndex:'1'}}>
+         
             <Grid item display="flex" justifyContent="center" alignItems="center">
               <img src={logo} alt="asa" width="20%"></img>
               <span style={{color:"black",marginLeft:"30px"}}>CHATEASE</span>
