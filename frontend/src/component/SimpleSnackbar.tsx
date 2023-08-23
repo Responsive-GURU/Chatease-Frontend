@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import { Alert } from '@mui/material';
+import { useState } from 'react';
 
 export default function SimpleSnackbar() {
-  const [message, setMessage] = React.useState(false);
+  const [message, setMessage] = useState(false);
 
   const handleClick = () => {
     setMessage(true);

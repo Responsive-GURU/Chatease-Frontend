@@ -1,22 +1,38 @@
-import {Grid,Stack} from '@mui/material'
-import React, {useRef} from 'react';
+import {Grid,Snackbar,Stack} from '@mui/material'
+import React, {useRef, useState} from 'react';
 import { TextField } from '@mui/material';
 import {Button} from '@mui/material';
-import Signin from './Signin';
 import axios from 'axios';
 import { useNavigate,Routes,Route} from 'react-router-dom';
 import logo from "../image/logo.jpg"
 import GoogleIcon from '@mui/icons-material/Google';
 import Link from '@mui/material/Link';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={10} ref={ref} variant="filled" {...props} />;
+});
+
+
 
 export const Register=()=>{
-   
+    const [message, setMessage] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('success');
+    const [responseMessage, setResponseMessage] = useState<String>();
+    const handleClose = () => {
+      setMessage(false);
+    };
+
      const value1=useRef<HTMLInputElement>(null)
      const value2=useRef<HTMLInputElement>(null)
      const value3=useRef<HTMLInputElement>(null)
      const value4=useRef<HTMLInputElement>(null)
      const navigate = useNavigate();   
-    const type1=(e:React.FormEvent<HTMLFormElement>)=>{
+    
+   const type1=(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     const name =value1.current?.value || '';
     const email=value2.current?.value || '';
@@ -26,10 +42,24 @@ export const Register=()=>{
     
     if(regex.test(pass)){
       if(pass===cpass){
-          setTimeout(() => {
-            alert("logged in successfully");
-            navigate(`/chatease/login`);
-          }, 5000);
+        axios.post("http://localhost:8080/chatease/register",{userName:name,email:email,password:pass})
+        .then((response)=>{
+            // alert("logged in successfully");
+            if(response.status === 200){
+              setMessage(true)
+              setAlertSeverity("success")
+              setResponseMessage(response.data.message)
+              setTimeout(()=>{
+              navigate('/chatease/login');
+            },2000)  
+            }     
+
+          }).catch((error)=>{
+            console.log(error)
+            setMessage(true)
+            setAlertSeverity("error")
+            setResponseMessage(error.message)
+          })        
         }
       else{
         alert("incorrect password")
@@ -38,14 +68,6 @@ export const Register=()=>{
     else{
       alert(`password must contain atleast 8 characters ${pass} ${cpass}`)
     }
- 
-
- axios.post("http://localhost:8080/chatease/register",{userName:name,email:email,password:pass}).then((response)=>{//then is a chaining
-     console.log(response)
-  }).catch((e)=>{
-     console.log(e)
-  }
-  )
   }
   const change=()=>{
      navigate('/chatease/login')
@@ -65,6 +87,11 @@ export const Register=()=>{
             <Grid item my={2}>Already have an account?<Link  href="" onClick={change}>Login</Link></Grid>
           </form>
        </Grid>
+       <Snackbar open={message} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alertSeverity} sx={{ width: '100%' }}>
+          {responseMessage}
+        </Alert>
+      </Snackbar>
      </>
 )}
 

@@ -1,15 +1,29 @@
-import { TextField} from '@mui/material';
+import { Snackbar, TextField} from '@mui/material';
 import {Button} from '@mui/material';
 import {Grid,Stack} from '@mui/material'
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { useNavigate} from 'react-router-dom';
 import logo from '../image/logo.jpg'
-import Link from '@mui/material/Link';
 import chat from '../image/chat.jpg'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom';
-import SimpleSnackbar from './SimpleSnackbar';
+import Link from '@mui/material/Link';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={10} ref={ref} variant="filled" {...props} />;
+});
  const Signin=()=>{
+  const [message, setMessage] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('success');
+  const [responseMessage, setResponseMessage] = useState<String>();
+  const handleClose = () => {
+    setMessage(false);
+  };
+
     const emailValue=useRef<HTMLInputElement>(null)
     const passwordValue=useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
@@ -21,10 +35,25 @@ import SimpleSnackbar from './SimpleSnackbar';
         const pass=passwordValue.current?.value || '';
         axios.post("http://localhost:8080/chatease/login",{email:email,password:pass}).then((response)=>{
         if(response.status===200){
-          navigate(`/chatease/homepage/${encodeURIComponent(email)}`);
+          setMessage(true)
+          setAlertSeverity("success")
+          setResponseMessage(response.data.message)
+          setTimeout(()=>{
+            navigate(`/chatease/homepage/${encodeURIComponent(email)}`);
+          }, 2000)
         }}
-        ).catch((e)=>{
+        ).catch((error)=>{
           console.log(e);
+          if(error.status === 401){
+            setMessage(true)
+            setAlertSeverity("info")
+            setResponseMessage(error.message)
+          }
+          else if(error.status === 404){
+            setMessage(true)
+            setAlertSeverity("error")
+            setResponseMessage(error.message)
+          }
         })
         }   
     const resetPassword = () =>{
@@ -56,6 +85,11 @@ import SimpleSnackbar from './SimpleSnackbar';
             </Grid>
           </Grid> 
         </Grid>
+        <Snackbar open={message} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alertSeverity} sx={{ width: '100%' }}>
+          {responseMessage}
+        </Alert>
+      </Snackbar>
     </Grid>
   )}
 export default Signin;
