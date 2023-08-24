@@ -26,16 +26,16 @@ export const Register=()=>{
       setMessage(false);
     };
 
-     const namevalue=useRef<HTMLInputElement>(null)
-     const emailvalue=useRef<HTMLInputElement>(null)
+     const nameValue=useRef<HTMLInputElement>(null)
+     const emailValue=useRef<HTMLInputElement>(null)
      const password=useRef<HTMLInputElement>(null)
      const cpassword=useRef<HTMLInputElement>(null)
      const navigate = useNavigate();   
     
    const type1=(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    const name =namevalue.current?.value || '';
-    const email=emailvalue.current?.value || '';
+    const name =nameValue.current?.value || '';
+    const email=emailValue.current?.value || '';
     const pass=password.current?.value || '';
     const cpass=cpassword.current?.value || '';
     const regex=new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$!@%^&*()]).{8,}')
@@ -79,8 +79,8 @@ export const Register=()=>{
        <Grid container my={1} justifyContent="center"><img src={logo} alt="asa" width="10%" height="90%"></img><span style={{color:"blue",fontSize:"22px"}}>REGISTER</span></Grid>
        <Grid container  justifyContent="center">
           <form onSubmit={type1}>
-            <Grid item my={1}><TextField required inputRef={namevalue} type="text" label="name"></TextField></Grid>
-            <Grid item my={4}><TextField required  inputRef={emailvalue} type="email" label="email"></TextField></Grid> 
+            <Grid item my={1}><TextField required inputRef={nameValue} type="text" label="name"></TextField></Grid>
+            <Grid item my={4}><TextField required  inputRef={emailValue} type="email" label="email"></TextField></Grid> 
             <Grid item my={4}><TextField required  inputRef={password} type="password" label="password"></TextField></Grid>
             <Grid item my={3}><TextField required  inputRef={cpassword} type="password" label="confirm password"></TextField></Grid>
             <Grid item><Stack direction="row" spacing={4}><Button variant="text" size="small"><GoogleIcon></GoogleIcon></Button><Button type="submit" variant="contained" size="medium">submit</Button></Stack></Grid>
