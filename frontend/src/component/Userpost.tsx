@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import Profile from "./Profile";
 
 const Homepage=()=>{
     const[image,setImage]=useState<File|null>(null);
@@ -134,6 +134,7 @@ const Homepage=()=>{
               </form>
               </Grid>
            </Grid>
+           <Profile/>
           </Grid>
     )
 }

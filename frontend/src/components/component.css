@@ -13,4 +13,9 @@
 
   
 
+profile-img img{
+  border: 30px solid black;
+  /* border-radius: 100% !important; */
+  height: 1px;
+}
   

@@ -7,10 +7,14 @@ import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from './component/Homepage';
 import Frontpage from './component/Frontpage';
 import Forgot from './component/Forgot';
+import Profile from './component/Profile';
+import PrimarySearchAppBar from './component/PrimarySearchAppBar';
+
  function App(){
- 
   return (
     <>  
+    <PrimarySearchAppBar/>
+    <Profile/>
     <BrowserRouter>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />

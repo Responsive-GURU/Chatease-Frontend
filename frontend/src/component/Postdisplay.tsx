@@ -16,6 +16,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import { useParams } from "react-router-dom";
 import Userpost from './Userpost'
 import axios from "axios";
+import Profile from "./Profile";
 interface userpost{
   caption:string,
   date:string,
