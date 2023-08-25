@@ -14,13 +14,13 @@ import PrimarySearchAppBar from './component/PrimarySearchAppBar';
   return (
     <>  
     <PrimarySearchAppBar/>
-    <Profile/>
+    {/* <Profile/> */}
     <BrowserRouter>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />
           <Route path="/chatease/login" element={<Signin/>} />
           <Route path="/chatease/homepage/:email" element={<Homepage/>}></Route>
-          <Route path="/chatease/register" element={<Register/>}></Route>
+          {/* <Route path="/chatease/register" element={<Register/>}></Route> */}
           <Route path='/chatease/reset' element={<Forgot/>}></Route>   
       </Routes>
     </BrowserRouter> 
