@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import {Button} from '@mui/material';
 import axios from 'axios';
 import { useNavigate,Routes,Route} from 'react-router-dom';
-import logo from "../image/logo.jpg"
+import logo from "../image/logo2.png"
 import GoogleIcon from '@mui/icons-material/Google';
 import Link from '@mui/material/Link';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
@@ -76,14 +76,23 @@ export const Register=()=>{
     return (
    
       <>
-       <Grid container my={1} justifyContent="center"><img src={logo} alt="asa" width="10%" height="90%"></img><span style={{color:"blue",fontSize:"22px"}}>REGISTER</span></Grid>
+        <Grid container my={1} justifyContent="center">
+          <img src={logo} alt="asa" width="10%" height="90%"></img>
+          <span style={{color:"blue",fontSize:"22px"}}>REGISTER</span>
+        </Grid>
        <Grid container  justifyContent="center">
           <form onSubmit={type1}>
             <Grid item my={1}><TextField required inputRef={nameValue} type="text" label="name"></TextField></Grid>
             <Grid item my={4}><TextField required  inputRef={emailValue} type="email" label="email"></TextField></Grid> 
             <Grid item my={4}><TextField required  inputRef={password} type="password" label="password"></TextField></Grid>
             <Grid item my={3}><TextField required  inputRef={cpassword} type="password" label="confirm password"></TextField></Grid>
-            <Grid item><Stack direction="row" spacing={4}><Button variant="text" size="small"><GoogleIcon></GoogleIcon></Button><Button type="submit" variant="contained" size="medium">submit</Button></Stack></Grid>
+            <Grid item>
+              <Stack direction="row" spacing={4}>
+                <Button variant="text" size="small">
+                  <GoogleIcon></GoogleIcon>
+                </Button><Button type="submit" variant="contained" size="medium">submit</Button>
+              </Stack>
+            </Grid>
             <Grid item my={2}>Already have an account?<Link  href="" onClick={change}>Login</Link></Grid>
           </form>
        </Grid>
