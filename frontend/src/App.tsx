@@ -13,8 +13,8 @@ import PrimarySearchAppBar from './component/PrimarySearchAppBar';
  function App(){
   return (
     <>  
-    <PrimarySearchAppBar/>
-    <Profile/>
+    {/* <PrimarySearchAppBar/>
+    <Profile/> */}
     <BrowserRouter>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />
