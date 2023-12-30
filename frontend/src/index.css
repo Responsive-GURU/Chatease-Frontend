@@ -5,9 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.button1:hover{
+background-color: black;
+}
+.button2:hover{
+background-color: black;
+}
+element.style {
+  border: 'none';
 }

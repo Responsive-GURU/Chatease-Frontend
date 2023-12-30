@@ -5,7 +5,6 @@ import chat from '../image/chatease.png'
 import { Register } from './Register'
 import { Route,Routes} from 'react-router-dom'
 import Homepage from './Homepage'
-import "./styles.css";
 const Frontpage=()=>{    
   return(
     <Grid container>
@@ -23,3 +22,5 @@ const Frontpage=()=>{
   )
 }
 export default Frontpage;
+
+

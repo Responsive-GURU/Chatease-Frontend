@@ -23,11 +23,6 @@ import HoverIcons from './component/HoverIcons';
   };
   
   return (
-    <div className='App'>  
-    <PrimarySearchAppBar/>
-    <HoverIcons></HoverIcons>
-    {/* <Profile/> */}
-    {/* <Display/> */}
     <BrowserRouter>
       <Routes>
           <Route path="/chatease" element={<Frontpage/>} />
@@ -37,8 +32,6 @@ import HoverIcons from './component/HoverIcons';
           <Route path='/chatease/reset' element={<Forgot/>}></Route>   
       </Routes>
     </BrowserRouter> 
-    <PostCard/>
-    <AddPostForm/>
-  </div>)
+  )
 }
 export default App;

@@ -37,3 +37,12 @@
     transform: rotate(360deg);
   }
 }
+.button1{
+  margin-left:'10px';
+  width:"200px";
+  color:"black";
+  background-color:"white"
+}
+.button1:hover{
+background-color:grey;
+}
