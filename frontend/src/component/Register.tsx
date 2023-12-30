@@ -42,7 +42,7 @@ export const Register=()=>{
     
     if(regex.test(pass)){
       if(pass===cpass){
-        axios.post("http://localhost:8080/chatease/register",{userName:name,email:email,password:pass})
+        axios.post("http://localhost:8081/chatease/register",{userName:name,email:email,password:pass})
         .then((response)=>{
             // alert("logged in successfully");
             if(response.status === 200){

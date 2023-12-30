@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import Userpost from './Userpost'
 import axios from "axios";
 import Profile from "./Profile";
+import { Display } from "../Display";
 interface userpost{
   caption:string,
   date:string,
@@ -37,7 +38,7 @@ const Homepage=()=>{
     const open1=Boolean(value1);
     
     useEffect(() => {
-      axios.get('http://localhost:8080/chatease/allpost')
+      axios.get('http://localhost:8081/chatease/allpost')
           .then(response => {
               setAllPost(response.data.reverse());
               
@@ -61,6 +62,7 @@ const Homepage=()=>{
     
     return(  
           <>
+           <Display/>
           {allPost?.map(post=>(
             <Grid key={post.id}>
             <Grid container display="flex" justifyContent="center">
@@ -90,20 +92,37 @@ const Homepage=()=>{
               title={post.userName}
               subheader={post.date.substring(0,10)}
             />
-            <CardMedia
-                    component="img"
-                    height="220"
-                    src={require(`../media/${post.image}`)}
-                    alt="abc"
-                    />
+            {post.image != null &&
+             <CardMedia
+             component="img"
+             height="220"
+             src={require(`../media/${post.image}`)}
+             alt="abc"
+             />
+             }
+           
             <CardContent>     
                 <Stack direction="row"><span>{post.caption}</span></Stack>
-                <Stack direction="row" my={4} spacing={9}><Button variant="text" size="small" onClick={change}> <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}</Button><Button variant="text" size="small" onClick={text1}> {count2 && <TextField variant="outlined" fullWidth/>}<CommentOutlinedIcon></CommentOutlinedIcon></Button> <Button variant="text" size="small"><ShareOutlinedIcon></ShareOutlinedIcon></Button></Stack>
+                <Stack direction="row" my={4} spacing={9}>
+                  <Button variant="text" size="small" onClick={change}> 
+                    <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon> {count}
+                  </Button>
+                  <Button variant="text" size="small" onClick={text1}> 
+                    {count2 && <TextField variant="outlined" fullWidth/>}
+                    <CommentOutlinedIcon></CommentOutlinedIcon>
+                  </Button> 
+                </Stack>
             </CardContent>
           </Card>
           </Grid>
           </Grid>
           ))}
+
+
+            
+
+
+           
           </>     
     )
 }

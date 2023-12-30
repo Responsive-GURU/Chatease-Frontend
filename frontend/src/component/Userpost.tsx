@@ -56,7 +56,7 @@ const Homepage=()=>{
       formData.append('email',email || '')
 
 
-      axios.post("http://localhost:8080/chatease/userpost",formData,{headers: {
+      axios.post("http://localhost:8081/chatease/userpost",formData,{headers: {
         'Content-Type': 'multipart/form-data'
       }}).then((response)=>{
         console.log(response);
@@ -126,9 +126,9 @@ const Homepage=()=>{
                 </Grid>
               </DialogContent>
               <DialogActions>
-                {count===1 && textval!=='' ?<Button type="submit" onClick={handleSubmit}>
+                {textval!=='' && <Button type="submit" onClick={handleSubmit}>
                   Post
-                </Button>:<Button type="submit" disabled>Post</Button>}
+                </Button>}
               </DialogActions>
               </Dialog>
               </form>
